@@ -1,31 +1,65 @@
+import java.util.Scanner;
+
 public class Viscount {
-    private static void promptUser(String text) {
-        System.out.println("____________________________________________________________");
-        System.out.println(text);
-        System.out.println("____________________________________________________________");
+    enum Command {
+        ECHO,
+        BYE
+    }
+
+    private static void displayViscountText(String text) {
+        System.out.println("\t_____________________________________________________________");
+        System.out.println("\t" + text.replaceAll("\n", "\n\t"));
+        System.out.println("\t_____________________________________________________________");
     }
     public static void startChat() {
-        String logo = " __     ___                           _  \n" +
-                " \\ \\   / (_)___  ___ ___  _   _ _ __ | |_ \n" +
-                "  \\ \\ / /| / __|/ __/ _ \\| | | | '_ \\| __|\n" +
-                "   \\ V / | \\__ \\ (_| (_) | |_| | | | | |_ \n" +
-                "    \\_/  |_|___/\\___\\___/ \\__,_|_| |_|\\__|\n";
+        String logo = "    __     ___                           _  \n" +
+                "    \\ \\   / (_)___  ___ ___  _   _ _ __ | |_ \n" +
+                "     \\ \\ / /| / __|/ __/ _ \\| | | | '_ \\| __|\n" +
+                "      \\ V / | \\__ \\ (_| (_) | |_| | | | | |_ \n" +
+                "       \\_/  |_|___/\\___\\___/ \\__,_|_| |_|\\__|";
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println(logo + " the okayish chatbot");
     }
 
     public static void sayHello() {
-        promptUser("Hello! I'm Viscount! \n What can I do for you?");
+        displayViscountText("Hello! I'm Viscount! \nWhat can I do for you?");
     }
 
     public static void sayGoodbye() {
-        promptUser("Bye. Hope to see you again soon!");
+        displayViscountText("Bye. Hope to see you again soon!");
+    }
+
+    public static void showUserPrompt() {
+        System.out.print("You >> ");
+    }
+
+    public static Command parseInput(String input) {
+        if(input.toLowerCase().contains("bye")){
+            return Command.BYE;
+        }
+        return Command.ECHO;
     }
 
     public static void main(String[] args) {
         startChat();
         sayHello();
-        sayGoodbye();
 
+        Scanner scanner = new Scanner(System.in);
+        String inputString = "";
+        Boolean isChatting = true;
+
+        while(isChatting){
+            showUserPrompt();
+            inputString = scanner.nextLine();
+            switch (parseInput(inputString)) {
+            case ECHO:
+                displayViscountText(inputString);
+                break;
+            case BYE:
+                sayGoodbye();
+                isChatting = false;
+                break;
+            }
+        }
     }
 }
