@@ -4,12 +4,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class Viscount {
-    enum Command {
-        ADD,
-        LIST,
-        TOGGLE,
-        BYE
-    }
 
     private static void displayViscountText(String text) {
         System.out.println("\t_____________________________________________________________");

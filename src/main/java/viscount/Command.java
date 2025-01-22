@@ -1,4 +1,8 @@
 package viscount;
 
-public class Command {
+enum Command {
+    ADD,
+    LIST,
+    TOGGLE,
+    BYE
 }
