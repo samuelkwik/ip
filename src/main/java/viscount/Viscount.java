@@ -33,17 +33,6 @@ public class Viscount {
         System.out.print("You >> ");
     }
 
-    public static Command getCommand(String input) {
-        if (input.toLowerCase().startsWith("bye")) {
-            return Command.BYE;
-        } else if (input.toLowerCase().startsWith("list")) {
-            return Command.LIST;
-        } else if (input.toLowerCase().startsWith("toggle")) {
-            return Command.TOGGLE;
-        }
-        return Command.ADD;
-    }
-
     public static void displayTaskList(Optional<String> taskListString) {
         displayViscountText(taskListString.map(s -> "Here is your list of tasks: \n" + s)
                 .orElse("You have no tasks"));
@@ -56,7 +45,7 @@ public class Viscount {
 
     public static void toggleTask(int index, TaskList taskList) {
         String outcome = taskList.toggleTask(index)
-                .map(s -> "\'" + s.getDescription() +
+                .map(s -> "\"" + s.getDescription() +
                         "\" marked " +
                         (s.isDone() ? "" : "in") + "complete")
                 .orElse("No task found with that index");
@@ -68,28 +57,29 @@ public class Viscount {
         sayHello();
 
         Scanner scanner = new Scanner(System.in);
-        String inputString = "";
-        Boolean isChatting = true;
+        String inputString;
+        boolean isChatting = true;
         TaskList taskList = new TaskList();
 
         while (isChatting) {
             showUserPrompt();
             inputString = scanner.nextLine();
-            switch (getCommand(inputString)) {
-                case ADD:
-                    addTask(inputString, taskList);
-                    break;
-                case LIST:
-                    displayTaskList(taskList.getTasks());
-                    break;
-                case TOGGLE:
-                    int index = Integer.parseInt(inputString.substring(inputString.indexOf(" ") + 1));
-                    toggleTask(index, taskList);
-                    break;
-                case BYE:
-                    sayGoodbye();
-                    isChatting = false;
-                    break;
+            ParsedCommand parsedCommand = ParsedCommand.parse(inputString);
+            switch (parsedCommand.getCommand()) {
+            case ADD:
+                addTask(inputString, taskList);
+                break;
+            case LIST:
+                displayTaskList(taskList.getTasks());
+                break;
+            case TOGGLE:
+                int index = Integer.parseInt(parsedCommand.getArguments()[0]);
+                toggleTask(index, taskList);
+                break;
+            case BYE:
+                sayGoodbye();
+                isChatting = false;
+                break;
             }
         }
     }
