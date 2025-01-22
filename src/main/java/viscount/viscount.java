@@ -3,7 +3,7 @@ package viscount;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class viscount {
+public class Viscount {
     enum Command {
         ADD,
         LIST,
