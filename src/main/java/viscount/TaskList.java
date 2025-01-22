@@ -5,17 +5,25 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class TaskList {
-    private ArrayList<String> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(String task) {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
-    public Optional<String> getTask(int index) {
+    public Optional<Task> toggleTask(int index) {
+        if (index > tasks.size() || index < 1) {
+            return Optional.empty();
+        }
+        tasks.get(index-1).toggleDone();
+        return Optional.of(tasks.get(index-1));
+    }
+
+    public Optional<Task> getTask(int index) {
         if (index > tasks.size() || index < 1) {
             return Optional.empty();
         }
@@ -27,7 +35,7 @@ public class TaskList {
             return Optional.empty();
         } else {
             Optional<String> taskListString = IntStream.range(0, tasks.size())
-                    .mapToObj(i -> "\t" + (i + 1) + ". " + tasks.get(i))
+                    .mapToObj(i -> "\t" + (i + 1) + ". " + tasks.get(i).toString())
                     .reduce((s1, s2) -> s1 + "\n" + s2);
             return taskListString;
         }

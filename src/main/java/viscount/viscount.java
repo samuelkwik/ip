@@ -7,6 +7,7 @@ public class Viscount {
     enum Command {
         ADD,
         LIST,
+        TOGGLE,
         BYE
     }
 
@@ -39,17 +40,33 @@ public class Viscount {
     }
 
     public static Command parseInput(String input) {
-        if (input.toLowerCase().equals("bye")) {
+        if (input.toLowerCase().startsWith("bye")) {
             return Command.BYE;
-        } else if (input.toLowerCase().equals("list")) {
+        } else if (input.toLowerCase().startsWith("list")) {
             return Command.LIST;
+        } else if (input.toLowerCase().startsWith("toggle")) {
+            return Command.TOGGLE;
         }
         return Command.ADD;
     }
 
     public static void displayTaskList(Optional<String> taskListString) {
-            displayViscountText(taskListString.map(s -> "Here is your list of tasks: \n")
-                    .orElse("You have no tasks"));
+        displayViscountText(taskListString.map(s -> "Here is your list of tasks: \n" + s)
+                .orElse("You have no tasks"));
+    }
+
+    public static void addTask(String taskString, TaskList taskList) {
+        taskList.addTask(new Task(taskString));
+        displayViscountText("\"" + taskString + "\" has been added!");
+    }
+
+    public static void toggleTask(int index, TaskList taskList) {
+        String outcome = taskList.toggleTask(index)
+                .map(s -> "\'" + s.getDescription() +
+                        "\" marked " +
+                        (s.isDone() ? "" : "in") + "complete")
+                .orElse("No task found with that index");
+        displayViscountText(outcome);
     }
 
     public static void main(String[] args) {
@@ -66,10 +83,14 @@ public class Viscount {
             inputString = scanner.nextLine();
             switch (parseInput(inputString)) {
                 case ADD:
-                    taskList.addTask(inputString);
+                    addTask(inputString, taskList);
                     break;
                 case LIST:
                     displayTaskList(taskList.getTasks());
+                    break;
+                case TOGGLE:
+                    int index = Integer.parseInt(inputString.substring(inputString.indexOf(" ") + 1));
+                    toggleTask(index, taskList);
                     break;
                 case BYE:
                     sayGoodbye();
