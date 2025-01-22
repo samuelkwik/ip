@@ -1,9 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.IntStream;
+package viscount;
 
-public class Viscount {
+import java.util.Optional;
+import java.util.Scanner;
+
+public class viscount {
     enum Command {
         ADD,
         LIST,
@@ -47,20 +47,9 @@ public class Viscount {
         return Command.ADD;
     }
 
-    public static void addTask(String task, ArrayList<String> taskList) {
-        taskList.add(task);
-        displayViscountText("Added \"" + task + "\" to your list!");
-    }
-
-    public static void displayTaskList(ArrayList<String> taskList) {
-        if (taskList.isEmpty()) {
-            displayViscountText("You have no tasks!");
-        } else {
-            String taskListString = IntStream.range(0, taskList.size())
-                    .mapToObj(i -> "\t" + (i + 1) + ". " + taskList.get(i))
-                    .reduce("Here is your list of tasks: ", (s1, s2) -> s1 + "\n" + s2);
-            displayViscountText(taskListString);
-        }
+    public static void displayTaskList(Optional<String> taskListString) {
+            displayViscountText(taskListString.map(s -> "Here is your list of tasks: \n")
+                    .orElse("You have no tasks"));
     }
 
     public static void main(String[] args) {
@@ -70,17 +59,17 @@ public class Viscount {
         Scanner scanner = new Scanner(System.in);
         String inputString = "";
         Boolean isChatting = true;
-        ArrayList<String> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
 
         while (isChatting) {
             showUserPrompt();
             inputString = scanner.nextLine();
             switch (parseInput(inputString)) {
                 case ADD:
-                    addTask(inputString, taskList);
+                    taskList.addTask(inputString);
                     break;
                 case LIST:
-                    displayTaskList(taskList);
+                    displayTaskList(taskList.getTasks());
                     break;
                 case BYE:
                     sayGoodbye();
