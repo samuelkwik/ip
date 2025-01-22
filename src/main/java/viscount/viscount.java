@@ -39,7 +39,7 @@ public class Viscount {
         System.out.print("You >> ");
     }
 
-    public static Command parseInput(String input) {
+    public static Command getCommand(String input) {
         if (input.toLowerCase().startsWith("bye")) {
             return Command.BYE;
         } else if (input.toLowerCase().startsWith("list")) {
@@ -81,7 +81,7 @@ public class Viscount {
         while (isChatting) {
             showUserPrompt();
             inputString = scanner.nextLine();
-            switch (parseInput(inputString)) {
+            switch (getCommand(inputString)) {
                 case ADD:
                     addTask(inputString, taskList);
                     break;
