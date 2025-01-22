@@ -38,13 +38,15 @@ public class Viscount {
                 .orElse("You have no tasks"));
     }
 
-    public static void addTask(TaskList taskList, String taskString) {
-        taskList.addTask(new ToDo(taskString));
-        displayViscountText("\"" + taskString + "\" has been added!");
-    }
-    public static void addTask(TaskList taskList, String taskString, String byDate) {
-        taskList.addTask(new Deadline(taskString, byDate));
-        displayViscountText("\"" + taskString + "\" has been added!");
+    public static void addTask(TaskList taskList, String... taskStrings) {
+        if (taskStrings.length == 1) {
+            taskList.addTask(new ToDo(taskStrings[0]));
+        }else if (taskStrings.length == 2){
+            taskList.addTask(new Deadline(taskStrings[0], taskStrings[1]));
+        }else if (taskStrings.length == 3){
+            taskList.addTask(new Event(taskStrings[0], taskStrings[1], taskStrings[2]));
+        }
+        displayViscountText("\"" + taskStrings[0] + "\" has been added!");
     }
 
     public static void toggleTask(String indexStr, TaskList taskList) throws ViscountException{
@@ -81,11 +83,8 @@ public class Viscount {
                 continue;
             }
             switch (parsedCommand.getCommand()) {
-            case TODO:
-                addTask(taskList, parsedCommand.getArguments()[0]);
-                break;
-            case DEADLINE:
-                addTask(taskList, parsedCommand.getArguments()[0], parsedCommand.getArguments()[1]);
+                case TODO, DEADLINE, EVENT:
+                addTask(taskList, parsedCommand.getArguments());
                 break;
             case LIST:
                 displayTaskList(taskList.getTasks());

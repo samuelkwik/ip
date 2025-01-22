@@ -32,20 +32,30 @@ public class ParsedCommand {
     }
 
     private static ParsedCommand handleDeadline(String inputString) throws ViscountException {
-        String pattern = "deadline\\s(\\S.*)\\s\\/by\s(\\S.*)";
+        String pattern = "deadline\\s(.*\\S.*)\\s\\/by\s(.*\\S.*)";
         Pattern deadlinePattern = Pattern.compile(pattern);
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
-            throw new ViscountException("Invalid deadline command, please provide a valid deadline");
+            throw new ViscountException("Invalid deadline command, please provide a valid deadline" +
+                    "\n deadline <description> /by <date>");
         }
         return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2));
-
     }
+    private static ParsedCommand handleEvent(String inputString) throws ViscountException {
+        String pattern = "event\\s(.*\\S.*)\\s/from\\s(.*\\S.*)\\s/to\\s(.*\\S.*)";
+        Pattern deadlinePattern = Pattern.compile(pattern);
+        Matcher matcher = deadlinePattern.matcher(inputString);
+        if (!matcher.matches()) {
+            throw new ViscountException("Invalid event command, please provide a valid event" +
+                    "\n event <description> /from <date> /to <date>");
+        }
+        return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2), matcher.group(3));}
 
     public static ParsedCommand parse(String inputString) throws ViscountException {
         return switch (inputString.toLowerCase().split(" ")[0]) {
             case "todo" -> handleTodo(inputString);
             case "deadline" -> handleDeadline(inputString);
+            case "event" -> handleEvent(inputString);
             case "list" -> new ParsedCommand(Command.LIST);
             case "bye" -> new ParsedCommand(Command.BYE);
             case "toggle" -> handleToggle(inputString);
