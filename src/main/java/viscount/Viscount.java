@@ -39,17 +39,22 @@ public class Viscount {
     }
 
     public static void addTask(String taskString, TaskList taskList) {
-        taskList.addTask(new Task(taskString));
+        taskList.addTask(new ToDo(taskString));
         displayViscountText("\"" + taskString + "\" has been added!");
     }
 
-    public static void toggleTask(int index, TaskList taskList) {
-        String outcome = taskList.toggleTask(index)
-                .map(s -> "\"" + s.getDescription() +
-                        "\" marked " +
-                        (s.isDone() ? "" : "in") + "complete")
-                .orElse("No task found with that index");
-        displayViscountText(outcome);
+    public static void toggleTask(String indexStr, TaskList taskList) throws ViscountException{
+        try {
+            int index = Integer.parseInt(indexStr);
+            String outcome = taskList.toggleTask(index)
+                    .map(s -> "\"" + s.getDescription() +
+                            "\" marked " +
+                            (s.isDone() ? "" : "in") + "complete")
+                    .orElse("No task found with that index");
+            displayViscountText(outcome);
+        } catch (NumberFormatException e) {
+            displayViscountText("Invalid index. Please try again.");
+        }
     }
 
     public static void main(String[] args) {
@@ -64,22 +69,29 @@ public class Viscount {
         while (isChatting) {
             showUserPrompt();
             inputString = scanner.nextLine();
-            ParsedCommand parsedCommand = ParsedCommand.parse(inputString);
+            ParsedCommand parsedCommand;
+            try{
+                parsedCommand = ParsedCommand.parse(inputString);
+            }catch(ViscountException e){
+                displayViscountText(e.getMessage());
+                continue;
+            }
             switch (parsedCommand.getCommand()) {
-            case ADD:
-                addTask(inputString, taskList);
+            case TODO:
+                addTask(parsedCommand.getArguments()[0], taskList);
                 break;
             case LIST:
                 displayTaskList(taskList.getTasks());
                 break;
             case TOGGLE:
-                int index = Integer.parseInt(parsedCommand.getArguments()[0]);
-                toggleTask(index, taskList);
+                toggleTask(parsedCommand.getArguments()[1], taskList);
                 break;
             case BYE:
                 sayGoodbye();
                 isChatting = false;
                 break;
+            case UNKNOWN:
+                displayViscountText("Sorry I didn't understand that. Please try again.");
             }
         }
     }

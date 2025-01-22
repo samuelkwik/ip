@@ -1,8 +1,9 @@
 package viscount;
 
 enum Command {
-    ADD,
+    TODO,
     LIST,
     TOGGLE,
-    BYE
+    BYE,
+    UNKNOWN
 }
