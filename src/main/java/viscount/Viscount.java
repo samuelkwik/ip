@@ -38,8 +38,12 @@ public class Viscount {
                 .orElse("You have no tasks"));
     }
 
-    public static void addTask(String taskString, TaskList taskList) {
+    public static void addTask(TaskList taskList, String taskString) {
         taskList.addTask(new ToDo(taskString));
+        displayViscountText("\"" + taskString + "\" has been added!");
+    }
+    public static void addTask(TaskList taskList, String taskString, String byDate) {
+        taskList.addTask(new Deadline(taskString, byDate));
         displayViscountText("\"" + taskString + "\" has been added!");
     }
 
@@ -78,13 +82,16 @@ public class Viscount {
             }
             switch (parsedCommand.getCommand()) {
             case TODO:
-                addTask(parsedCommand.getArguments()[0], taskList);
+                addTask(taskList, parsedCommand.getArguments()[0]);
+                break;
+            case DEADLINE:
+                addTask(taskList, parsedCommand.getArguments()[0], parsedCommand.getArguments()[1]);
                 break;
             case LIST:
                 displayTaskList(taskList.getTasks());
                 break;
             case TOGGLE:
-                toggleTask(parsedCommand.getArguments()[1], taskList);
+                toggleTask(parsedCommand.getArguments()[0], taskList);
                 break;
             case BYE:
                 sayGoodbye();
