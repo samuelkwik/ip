@@ -4,12 +4,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class Viscount {
-    enum Command {
-        ADD,
-        LIST,
-        TOGGLE,
-        BYE
-    }
+
 
     private static void displayViscountText(String text) {
         System.out.println("\t_____________________________________________________________");
@@ -60,7 +55,13 @@ public class Viscount {
         displayViscountText("\"" + taskString + "\" has been added!");
     }
 
-    public static void toggleTask(int index, TaskList taskList) {
+    public static void toggleTask(String inputString, TaskList taskList) {
+        String indexString[] = inputString.split("\s");
+        if (indexString.length != 2) {
+            displayViscountText("Please ensure that you have entered only 1 index");
+            return;
+        }
+        int index = Integer.parseInt(indexString[1]);
         String outcome = taskList.toggleTask(index)
                 .map(s -> "\'" + s.getDescription() +
                         "\" marked " +
@@ -90,7 +91,7 @@ public class Viscount {
                     break;
                 case TOGGLE:
                     int index = Integer.parseInt(inputString.substring(inputString.indexOf(" ") + 1));
-                    toggleTask(index, taskList);
+                    toggleTask(inputString, taskList);
                     break;
                 case BYE:
                     sayGoodbye();
