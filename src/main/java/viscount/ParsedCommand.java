@@ -33,7 +33,7 @@ public class ParsedCommand {
 
     private static ParsedCommand handleDeadline(String inputString) throws ViscountException {
         String pattern = "deadline\\s(.*\\S.*)\\s\\/by\s(.*\\S.*)";
-        Pattern deadlinePattern = Pattern.compile(pattern);
+        Pattern deadlinePattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
             throw new ViscountException("Invalid deadline command, please provide a valid deadline" +
@@ -43,7 +43,7 @@ public class ParsedCommand {
     }
     private static ParsedCommand handleEvent(String inputString) throws ViscountException {
         String pattern = "event\\s(.*\\S.*)\\s/from\\s(.*\\S.*)\\s/to\\s(.*\\S.*)";
-        Pattern deadlinePattern = Pattern.compile(pattern);
+        Pattern deadlinePattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
             throw new ViscountException("Invalid event command, please provide a valid event" +

@@ -49,7 +49,7 @@ public class Viscount {
         displayViscountText("\"" + taskStrings[0] + "\" has been added!");
     }
 
-    public static void toggleTask(String indexStr, TaskList taskList) throws ViscountException{
+    public static void toggleTask(String indexStr, TaskList taskList) {
         try {
             int index = Integer.parseInt(indexStr);
             String outcome = taskList.toggleTask(index)
@@ -59,7 +59,7 @@ public class Viscount {
                     .orElse("No task found with that index");
             displayViscountText(outcome);
         } catch (NumberFormatException e) {
-            displayViscountText("Invalid index. Please try again.");
+            displayViscountText("Please enter a numerical index");
         }
     }
 

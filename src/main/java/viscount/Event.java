@@ -5,8 +5,8 @@ public class Event extends Task{
     private static String toDate;
     public Event(String description, String fromDate, String toDate) {
         super(description);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.fromDate = fromDate.trim();
+        this.toDate = toDate.trim();
     }
     @Override
     public String toString() {

@@ -4,7 +4,7 @@ public class Deadline extends Task{
     private static String date;
     public Deadline(String description, String date) {
         super(description);
-        this.date = date;
+        this.date = date.trim();
     }
     @Override
     public String toString() {
