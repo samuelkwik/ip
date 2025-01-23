@@ -42,6 +42,7 @@ public class ParsedCommand {
         }
         return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2));
     }
+
     private static ParsedCommand handleEvent(String inputString) throws ViscountException {
         String pattern = "event\\s(.*\\S.*)\\s/from\\s(.*\\S.*)\\s/to\\s(.*\\S.*)";
         Pattern deadlinePattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
@@ -50,7 +51,8 @@ public class ParsedCommand {
             throw new ViscountException("Invalid event command, please provide a valid event" +
                     "\nevent <description> /from <date> /to <date>");
         }
-        return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2), matcher.group(3));}
+        return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2), matcher.group(3));
+    }
 
     public static ParsedCommand parse(String inputString) throws ViscountException {
         return switch (inputString.toLowerCase().split(" ")[0]) {
