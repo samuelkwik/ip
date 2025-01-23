@@ -26,7 +26,8 @@ public class ParsedCommand {
 
     private static ParsedCommand handleTodo(String inputString) throws ViscountException {
         if (inputString.length() < 5 || inputString.substring(5).trim().isEmpty()) {
-            throw new ViscountException("No description provided");
+            throw new ViscountException("Invalid todo command, please provide a valid todo" +
+                    "\ntodo <description>");
         }
         return new ParsedCommand(Command.TODO, inputString.substring(5).trim());
     }
@@ -37,7 +38,7 @@ public class ParsedCommand {
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
             throw new ViscountException("Invalid deadline command, please provide a valid deadline" +
-                    "\n deadline <description> /by <date>");
+                    "\ndeadline <description> /by <date>");
         }
         return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2));
     }
@@ -47,7 +48,7 @@ public class ParsedCommand {
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
             throw new ViscountException("Invalid event command, please provide a valid event" +
-                    "\n event <description> /from <date> /to <date>");
+                    "\nevent <description> /from <date> /to <date>");
         }
         return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2), matcher.group(3));}
 
