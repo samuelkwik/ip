@@ -56,7 +56,19 @@ public class Viscount {
                     .map(s -> "\"" + s.getDescription() +
                             "\" marked " +
                             (s.isDone() ? "" : "in") + "complete")
-                    .orElse("No task found with that index");
+                    .orElse("TOGGLE: No task found with that index");
+            displayViscountText(outcome);
+        } catch (NumberFormatException e) {
+            displayViscountText("Please enter a numerical index");
+        }
+    }
+
+    public static void deleteTask(String indexStr, TaskList taskList) {
+        try {
+            int index = Integer.parseInt(indexStr);
+            String outcome = taskList.deleteTask(index)
+                    .map(s -> "\"" + s.getDescription() + "\" deleted")
+                    .orElse("DELETE: No task found with that index");
             displayViscountText(outcome);
         } catch (NumberFormatException e) {
             displayViscountText("Please enter a numerical index");
@@ -91,6 +103,9 @@ public class Viscount {
                 break;
             case TOGGLE:
                 toggleTask(parsedCommand.getArguments()[0], taskList);
+                break;
+            case DELETE:
+                deleteTask(parsedCommand.getArguments()[0], taskList);
                 break;
             case BYE:
                 sayGoodbye();

@@ -38,7 +38,7 @@ You >> 	_____________________________________________________________
 		3. [E] [ ] event case insensitive with    spaces (from Sunday to Tuesday)
 	_____________________________________________________________
 You >> 	_____________________________________________________________
-	No task found with that index
+	TOGGLE: No task found with that index
 	_____________________________________________________________
 You >> 	_____________________________________________________________
 	"Todo with Spaces" marked complete
@@ -69,6 +69,32 @@ You >> 	_____________________________________________________________
 		1. [T] [ ] Todo with Spaces
 		2. [D] [ ] deadline case insensitive with   spaces (by Sunday)
 		3. [E] [ ] event case insensitive with    spaces (from Sunday to Tuesday)
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	DELETE: No task found with that index
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	Here is your list of tasks: 
+		1. [T] [ ] Todo with Spaces
+		2. [D] [ ] deadline case insensitive with   spaces (by Sunday)
+		3. [E] [ ] event case insensitive with    spaces (from Sunday to Tuesday)
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	"event case insensitive with    spaces" deleted
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	Here is your list of tasks: 
+		1. [T] [ ] Todo with Spaces
+		2. [D] [ ] deadline case insensitive with   spaces (by Sunday)
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	"deadline case insensitive with   spaces" deleted
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	"Todo with Spaces" deleted
+	_____________________________________________________________
+You >> 	_____________________________________________________________
+	You have no tasks
 	_____________________________________________________________
 You >> 	_____________________________________________________________
 	Bye. Hope to see you again soon!

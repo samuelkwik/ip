@@ -30,6 +30,14 @@ public class TaskList {
         return Optional.of(tasks.get(index-1));
     }
 
+    public Optional<Task> deleteTask(int index) {
+        Optional<Task> deletedTask = getTask(index);
+        return deletedTask.map(task -> {
+            tasks.remove(index-1);
+            return task;
+        });
+    }
+
     public Optional<String> getTasks() {
         if (tasks.isEmpty()) {
             return Optional.empty();

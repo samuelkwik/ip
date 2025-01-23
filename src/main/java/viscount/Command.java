@@ -6,6 +6,7 @@ enum Command {
     EVENT,
     LIST,
     TOGGLE,
+    DELETE,
     BYE,
     UNKNOWN
 }

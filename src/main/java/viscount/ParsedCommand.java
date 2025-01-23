@@ -54,6 +54,14 @@ public class ParsedCommand {
         return new ParsedCommand(Command.DEADLINE, matcher.group(1), matcher.group(2), matcher.group(3));
     }
 
+    private static ParsedCommand handleDelete(String inputString) throws ViscountException {
+        String[] splitString = inputString.split(" ");
+        if (splitString.length != 2) {
+            throw new ViscountException("Invalid delete command, please only state one index to delete");
+        }
+        return new ParsedCommand(Command.DELETE, splitString[1]);
+    }
+
     public static ParsedCommand parse(String inputString) throws ViscountException {
         return switch (inputString.toLowerCase().split(" ")[0]) {
             case "todo" -> handleTodo(inputString);
@@ -62,6 +70,7 @@ public class ParsedCommand {
             case "list" -> new ParsedCommand(Command.LIST);
             case "bye" -> new ParsedCommand(Command.BYE);
             case "toggle" -> handleToggle(inputString);
+            case "delete" -> handleDelete(inputString);
             default -> new ParsedCommand(Command.UNKNOWN);
         };
     }
