@@ -1,0 +1,18 @@
+Test
+todo
+todo Todo with Spaces
+DeadliNe deadline case insensitive with   spaces /by Sunday
+Deadline bad deadline
+EveNt event case insensitive with    spaces /from Sunday /to Tuesday
+Event bad event
+list
+toggle 0
+toggle 1
+toggle 2
+toggle 3
+list
+toggle 3
+toggle 2
+toggle 1
+list
+bye
