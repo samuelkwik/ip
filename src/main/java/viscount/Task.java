@@ -9,6 +9,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, Boolean isDone) {
+        this.description = description.trim();
+        this.isDone = isDone;
+    }
+
     public void toggleDone() {
         this.isDone = !this.isDone;
     }
@@ -19,6 +24,10 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getFileRepresentation(String seperator) {
+        return (this.isDone? "X" : " ") + seperator + this.description;
     }
 
     public String toString() {
