@@ -1,9 +1,10 @@
 package viscount;
 
-import java.util.Optional;
 import java.util.Scanner;
 
+
 public class Viscount {
+    private static String TASK_FILEPATH = ".data/saved_tasks.txt";
 
     private static void displayViscountText(String text) {
         System.out.println("\t_____________________________________________________________");
@@ -33,20 +34,24 @@ public class Viscount {
         System.out.print("You >> ");
     }
 
-    public static void displayTaskList(Optional<String> taskListString) {
-        displayViscountText(taskListString.map(s -> "Here is your list of tasks: \n" + s)
+    public static void displayTaskList(TaskList taskList) {
+        displayViscountText(taskList.getTasks().map(s -> "Here is your list of tasks: \n" + s)
                 .orElse("You have no tasks"));
     }
 
     public static void addTask(TaskList taskList, String... taskStrings) {
-        if (taskStrings.length == 1) {
-            taskList.addTask(new ToDo(taskStrings[0]));
-        }else if (taskStrings.length == 2){
-            taskList.addTask(new Deadline(taskStrings[0], taskStrings[1]));
-        }else if (taskStrings.length == 3){
-            taskList.addTask(new Event(taskStrings[0], taskStrings[1], taskStrings[2]));
+        try {
+            if (taskStrings.length == 1) {
+                taskList.addTask(new ToDo(taskStrings[0]));
+            }else if (taskStrings.length == 2){
+                taskList.addTask(new Deadline(taskStrings[0], taskStrings[1]));
+            }else if (taskStrings.length == 3){
+                taskList.addTask(new Event(taskStrings[0], taskStrings[1], taskStrings[2]));
+            }
+            displayViscountText("\"" + taskStrings[0] + "\" has been added!");
+        } catch (ViscountException e) {
+            displayViscountText(e.getMessage());
         }
-        displayViscountText("\"" + taskStrings[0] + "\" has been added!");
     }
 
     public static void toggleTask(String indexStr, TaskList taskList) {
@@ -60,6 +65,8 @@ public class Viscount {
             displayViscountText(outcome);
         } catch (NumberFormatException e) {
             displayViscountText("Please enter a numerical index");
+        } catch (ViscountException e) {
+            displayViscountText(e.getMessage());
         }
     }
 
@@ -72,17 +79,26 @@ public class Viscount {
             displayViscountText(outcome);
         } catch (NumberFormatException e) {
             displayViscountText("Please enter a numerical index");
+        } catch (ViscountException e) {
+            displayViscountText(e.getMessage());
         }
     }
 
+
+
     public static void main(String[] args) {
         startChat();
-        sayHello();
 
         Scanner scanner = new Scanner(System.in);
         String inputString;
         boolean isChatting = true;
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(TASK_FILEPATH);
+        try {
+            taskList.initialize();
+        } catch (ViscountException e) {
+            displayViscountText(e.getMessage());
+        }
+        sayHello();
 
         while (isChatting) {
             showUserPrompt();
@@ -99,7 +115,7 @@ public class Viscount {
                 addTask(taskList, parsedCommand.getArguments());
                 break;
             case LIST:
-                displayTaskList(taskList.getTasks());
+                displayTaskList(taskList);
                 break;
             case TOGGLE:
                 toggleTask(parsedCommand.getArguments()[0], taskList);
