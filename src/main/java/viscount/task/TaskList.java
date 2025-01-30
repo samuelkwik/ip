@@ -28,7 +28,7 @@ public class TaskList {
             addFromList(tempList);
         } catch ( FileNotFoundException e ) {
             storage.handleFileNotFound();
-            throw new ViscountException("No existing tasks found");
+            throw new ViscountException("No existing saved task file found");
         }
         catch (ViscountException e) {
             throw new ViscountException("Saved tasks file: " + e.getMessage());
@@ -36,11 +36,13 @@ public class TaskList {
     }
 
     public void addTask(Task task, Storage storage) throws ViscountException {
+        ArrayList<Task> tempList = new ArrayList<>(tasks);
         try {
-            storage.writeToStorage(getTasksFileRepresentation().orElse(""));
             tasks.add(task);
+            storage.writeToStorage(getTasksFileRepresentation().orElse(""));
         }
         catch ( IOException e ) {
+            tasks = tempList;
             throw new ViscountException("Add task FAILED: file is busy");
         }
     }
@@ -110,7 +112,7 @@ public class TaskList {
 
     public Optional<Task> deleteTask(int index, Storage storage) throws ViscountException {
         Optional<Task> deletedTask = getTask(index);
-        ArrayList<Task> tempList = tasks;
+        ArrayList<Task> tempList = new ArrayList<>(tasks);
         try {
             tasks.remove(index-1);
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
@@ -124,6 +126,9 @@ public class TaskList {
     }
 
     private void addFromList(ArrayList<String> list) throws ViscountException{
+        if (list.isEmpty()) {
+            return;
+        }
         for (String s : list) {
             addTask(s);
         }

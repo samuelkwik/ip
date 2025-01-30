@@ -1,2 +1,3 @@
 T |   | Todo with Spaces
 D |   | deadline case insensitive with   spaces | 2025-03-01
+E |   | event case insensitive with    spaces | 2026-04-01 | 2026-08-09

@@ -34,12 +34,9 @@ public class Storage {
     }
 
     public void writeToStorage(String toFile) throws IOException {
-        if (toFile.isEmpty()) {
-            return;
-        }
         File f = new File(filePath);
         FileWriter fw = new FileWriter(f);
-        fw.write(toFile + "\n");
+        fw.write(toFile + (toFile.isEmpty()? "" : "\n"));
         fw.close();
     }
 
