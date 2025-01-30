@@ -1,4 +1,7 @@
-package viscount;
+package viscount.task;
+
+import viscount.Storage;
+import viscount.ViscountException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

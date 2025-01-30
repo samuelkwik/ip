@@ -1,4 +1,8 @@
-package viscount;
+package viscount.command;
+
+import viscount.Storage;
+import viscount.task.TaskList;
+import viscount.TextUi;
 
 public class ByeCommand extends Command {
     @Override

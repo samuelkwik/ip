@@ -1,4 +1,12 @@
-package viscount;
+package viscount.command;
+
+import viscount.task.TaskList;
+import viscount.Storage;
+import viscount.TextUi;
+import viscount.ViscountException;
+import viscount.task.ToDo;
+import viscount.task.Deadline;
+import viscount.task.Event;
 
 public class AddCommand extends Command {
     private final String description;
@@ -10,7 +18,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, TextUi textUi, Storage storage) throws ViscountException{
+    public void execute(TaskList taskList, TextUi textUi, Storage storage) throws ViscountException {
             if (additionalArgs.length == 0) {
                 taskList.addTask(new ToDo(description), storage);
             } else if (additionalArgs.length == 1) {

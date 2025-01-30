@@ -1,4 +1,4 @@
-package viscount;
+package viscount.task;
 
 public class Task {
     private final String description;

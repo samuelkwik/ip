@@ -1,5 +1,9 @@
 package viscount;
 
+import viscount.command.Command;
+import viscount.command.Parser;
+import viscount.task.TaskList;
+
 import java.util.Scanner;
 
 public class Viscount {

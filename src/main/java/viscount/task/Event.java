@@ -1,4 +1,6 @@
-package viscount;
+package viscount.task;
+
+import viscount.ViscountException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
