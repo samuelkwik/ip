@@ -12,6 +12,9 @@ public class Parser {
         if (splitString.length != 2) {
             throw new ViscountException("Invalid toggle command, please only state one index to toggle");
         }
+        if (!splitString[1].matches("\\d+")) {
+            throw new ViscountException("Invalid toggle command, please enter a numerical index");
+        }
         return new ToggleCommand(splitString[1]);
     }
 
@@ -49,6 +52,9 @@ public class Parser {
         String[] splitString = inputString.split(" ");
         if (splitString.length != 2) {
             throw new ViscountException("Invalid delete command, please only state one index to delete");
+        }
+        if (!splitString[1].matches("\\d+")) {
+            throw new ViscountException("Invalid delete command, please enter a numerical index");
         }
         return new DeleteCommand(splitString[1]);
     }

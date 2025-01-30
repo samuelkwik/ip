@@ -6,7 +6,7 @@ import viscount.TextUi;
 import viscount.ViscountException;
 
 public class ToggleCommand extends Command {
-    private final String indexStr;
+    final String indexStr;
 
     public ToggleCommand(String indexStr) {
         this.indexStr = indexStr;
