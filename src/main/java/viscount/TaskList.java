@@ -1,12 +1,9 @@
 package viscount;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
@@ -21,14 +18,13 @@ public class TaskList {
         this.filePath = filePath;
     }
 
-    public void initialize() throws ViscountException {
+    public void initialize(Storage storage) throws ViscountException {
         ArrayList<String> tempList = new ArrayList<>();
         try {
-            tempList = readFileContents();
+            tempList = storage.readFromStorage();
             addFromList(tempList);
         } catch ( FileNotFoundException e ) {
-            File file = new File(filePath);
-            file.getParentFile().mkdirs();
+            storage.handleFileNotFound();
             throw new ViscountException("No existing tasks found");
         }
         catch (ViscountException e) {
@@ -36,9 +32,9 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task) throws ViscountException {
+    public void addTask(Task task, Storage storage) throws ViscountException {
         try {
-            appendToFileContents(getTaskFileRepresentation(task));
+            storage.writeToStorage(getTasksFileRepresentation().orElse(""));
             tasks.add(task);
         }
         catch ( IOException e ) {
@@ -60,14 +56,13 @@ public class TaskList {
         }
     }
 
-    public Optional<Task> toggleTask(int index) {
-
+    public Optional<Task> toggleTask(int index, Storage storage) throws ViscountException {
             if (index > tasks.size() || index < 1) {
                 return Optional.empty();
             }
             tasks.get(index - 1).toggleDone();
             try {
-                writeFileContents(getTasksFileRepresentation().orElse(""));
+                storage.writeToStorage(getTasksFileRepresentation().orElse(""));
                 return Optional.of(tasks.get(index - 1));
             } catch (IOException e) {
                 tasks.get(index - 1).toggleDone();
@@ -110,43 +105,19 @@ public class TaskList {
         }
     }
 
-    public Optional<Task> deleteTask(int index) throws ViscountException {
+    public Optional<Task> deleteTask(int index, Storage storage) throws ViscountException {
         Optional<Task> deletedTask = getTask(index);
         ArrayList<Task> tempList = tasks;
         try {
             tasks.remove(index-1);
-            writeFileContents(getTasksFileRepresentation().orElse(""));
+            storage.writeToStorage(getTasksFileRepresentation().orElse(""));
         } catch (IOException e) {
             tasks = tempList;
             throw new ViscountException("Delete task FAILED: file is busy");
         } catch (IndexOutOfBoundsException e) {
-            throw new ViscountException("Invalid task index: " + index);
+            throw new ViscountException("DELETE: Invalid task index: " + index);
         }
         return deletedTask;
-    }
-
-    private ArrayList<String> readFileContents() throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        ArrayList<String> list = new ArrayList<>();
-        while (s.hasNextLine()) {
-            list.add(s.nextLine());
-        }
-        return list;
-    }
-
-    private void writeFileContents(String toFile) throws IOException {
-        File f = new File(filePath);
-        FileWriter fw = new FileWriter(f);
-        fw.write(toFile + "\n");
-        fw.close();
-    }
-
-    private void appendToFileContents(String toFile) throws IOException {
-        File f = new File(filePath);
-        FileWriter fw = new FileWriter(f, true);
-        fw.write(toFile + "\n");
-        fw.close();
     }
 
     private void addFromList(ArrayList<String> list) throws ViscountException{
