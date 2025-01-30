@@ -1,10 +1,11 @@
 package viscount;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
 public class Viscount {
-    private static String TASK_FILEPATH = ".data/saved_tasks.txt";
+    private static final String TASK_FILEPATH = ".data/saved_tasks.txt";
 
     private static void displayViscountText(String text) {
         System.out.println("\t_____________________________________________________________");
@@ -51,6 +52,8 @@ public class Viscount {
             displayViscountText("\"" + taskStrings[0] + "\" has been added!");
         } catch (ViscountException e) {
             displayViscountText(e.getMessage());
+        } catch (DateTimeParseException e) {
+            displayViscountText("ADD: Please enter dates in this format YYYY-MM-DD");
         }
     }
 
@@ -64,7 +67,7 @@ public class Viscount {
                     .orElse("TOGGLE: No task found with that index");
             displayViscountText(outcome);
         } catch (NumberFormatException e) {
-            displayViscountText("Please enter a numerical index");
+            displayViscountText("TOGGLE: Please enter a numerical index");
         } catch (ViscountException e) {
             displayViscountText(e.getMessage());
         }
@@ -78,7 +81,7 @@ public class Viscount {
                     .orElse("DELETE: No task found with that index");
             displayViscountText(outcome);
         } catch (NumberFormatException e) {
-            displayViscountText("Please enter a numerical index");
+            displayViscountText("DELETE: Please enter a numerical index");
         } catch (ViscountException e) {
             displayViscountText(e.getMessage());
         }
