@@ -1,23 +1,36 @@
 package viscount;
 
-public class Event extends Task{
-    private static String fromDate;
-    private static String toDate;
-    public Event(String description, String fromDate, String toDate) {
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+public class Event extends Task {
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
+
+    public Event(String description, String fromDateString, String toDateString) throws DateTimeParseException {
         super(description);
-        this.fromDate = fromDate.trim();
-        this.toDate = toDate.trim();
+        fromDate = LocalDate.parse(fromDateString.trim());
+        toDate = LocalDate.parse(toDateString.trim());
+        if (fromDate.isAfter(toDate)) {
+            throw new ViscountException("Event Creation Failed: From Date is after To Date");
+        }
     }
-    public Event(String description, Boolean isDone, String fromDate, String toDate) {
+
+    public Event(String description, Boolean isDone, String fromDateString, String toDateString) throws DateTimeParseException {
         super(description, isDone);
-        this.fromDate = fromDate.trim();
-        this.toDate = toDate.trim();
+        fromDate = LocalDate.parse(fromDateString.trim());
+        toDate = LocalDate.parse(toDateString.trim());
+        if (fromDate.isAfter(toDate)) {
+            throw new ViscountException("Event Creation Failed: From Date is after To Date");
+        }
     }
+
     @Override
     public String getFileRepresentation(String seperator) {
         return "E" + seperator + super.getFileRepresentation(seperator)
                 + seperator + fromDate + seperator + toDate;
     }
+
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from " + fromDate + " to " + toDate + ")";
