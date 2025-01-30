@@ -12,6 +12,7 @@ public class TextUi {
         System.out.println("\t" + text.replaceAll("\n", "\n\t"));
         printLine();
     }
+
     public void sayHello() {
         displayViscountText("Hello! I'm Viscount! \nWhat can I do for you?");
     }
@@ -31,11 +32,11 @@ public class TextUi {
     }
 
     public void startChat() {
-        String logo = "    __     ___                           _  \n" +
-                "    \\ \\   / (_)___  ___ ___  _   _ _ __ | |_ \n" +
-                "     \\ \\ / /| / __|/ __/ _ \\| | | | '_ \\| __|\n" +
-                "      \\ V / | \\__ \\ (_| (_) | |_| | | | | |_ \n" +
-                "       \\_/  |_|___/\\___\\___/ \\__,_|_| |_|\\__|";
+        String logo = "    __     ___                           _  \n"
+                + "    \\ \\   / (_)___  ___ ___  _   _ _ __ | |_ \n"
+                + "     \\ \\ / /| / __|/ __/ _ \\| | | | '_ \\| __|\n"
+                + "      \\ V / | \\__ \\ (_| (_) | |_| | | | | |_ \n"
+                + "       \\_/  |_|___/\\___\\___/ \\__,_|_| |_|\\__|";
         printLine();
         System.out.println(logo + " the okayish chatbot");
     }
