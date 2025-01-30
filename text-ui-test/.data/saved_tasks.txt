@@ -1,0 +1,2 @@
+T |   | Todo with Spaces
+D |   | deadline case insensitive with   spaces | 2025-03-01

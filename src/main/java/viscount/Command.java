@@ -1,12 +1,9 @@
 package viscount;
 
-enum Command {
-    TODO,
-    DEADLINE,
-    EVENT,
-    LIST,
-    TOGGLE,
-    DELETE,
-    BYE,
-    UNKNOWN
+public abstract class Command {
+    public abstract void execute(TaskList taskList, TextUi textUi, Storage storage) throws ViscountException;
+
+    public boolean isExitCommand() {
+        return false;
+    }
 }
