@@ -4,17 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private final CommandOld command;
-    private final String[] arguments;
-
-    private Parser(CommandOld command, String... arguments) {
-        this.command = command;
-        this.arguments = arguments;
-    }
-
-    public static Parser parsedUnknownCommand() {
-        return new Parser(CommandOld.UNKNOWN);
-    }
 
     private static Command handleToggle(String inputString) throws ViscountException {
         String[] splitString = inputString.split(" ");
@@ -73,14 +62,6 @@ public class Parser {
             case "delete" -> handleDelete(inputString);
             default -> new UnknownCommand();
         };
-    }
-
-    protected CommandOld getCommand() {
-        return this.command;
-    }
-
-    public String[] getArguments() {
-        return this.arguments;
     }
 }
 
