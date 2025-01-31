@@ -54,7 +54,8 @@ public class TaskList {
         } else if (taskParts.length == 4 && taskParts[0].equals("D")) {
             tasks.add(new Deadline(taskParts[2], taskParts[1].contains("X"), taskParts[3]));
         } else if (taskParts.length == 5 && taskParts[0].equals("E")) {
-            tasks.add(new Event(taskParts[2], taskParts[1].contains("X"), taskParts[3], taskParts[4]));
+            tasks.add(new Event(taskParts[2],
+                    taskParts[1].contains("X"), taskParts[3], taskParts[4]));
         } else {
             throw new ViscountException("Invalid task string format: " + taskString);
         }
@@ -110,7 +111,9 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return Optional.empty();
         } else {
-            return tasks.stream().map(task -> task.getFileRepresentation(SEPERATOR)).reduce((s1, s2) -> s1 + "\n" + s2);
+            return tasks.stream()
+                    .map(task -> task.getFileRepresentation(SEPERATOR))
+                    .reduce((s1, s2) -> s1 + "\n" + s2);
         }
     }
 

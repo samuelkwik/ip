@@ -9,7 +9,8 @@ public class Event extends Task {
     private final LocalDate fromDate;
     private final LocalDate toDate;
 
-    public Event(String description, String fromDateString, String toDateString) throws DateTimeParseException {
+    public Event(String description, String fromDateString,
+                 String toDateString) throws DateTimeParseException {
         super(description);
         fromDate = LocalDate.parse(fromDateString.trim());
         toDate = LocalDate.parse(toDateString.trim());
@@ -18,7 +19,8 @@ public class Event extends Task {
         }
     }
 
-    public Event(String description, Boolean isDone, String fromDateString, String toDateString) throws DateTimeParseException {
+    public Event(String description, Boolean isDone,
+                 String fromDateString, String toDateString) throws DateTimeParseException {
         super(description, isDone);
         fromDate = LocalDate.parse(fromDateString.trim());
         toDate = LocalDate.parse(toDateString.trim());
@@ -35,6 +37,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+
         return "[E] " + super.toString() + " (from " + fromDate + " to " + toDate + ")";
     }
 }
