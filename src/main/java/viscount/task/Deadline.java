@@ -6,12 +6,14 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private final LocalDate byDate;
 
-    public Deadline(String description, String byDateString) throws DateTimeParseException {
+    public Deadline(String description,
+                    String byDateString) throws DateTimeParseException {
         super(description);
         this.byDate = LocalDate.parse(byDateString.trim());
     }
 
-    public Deadline(String description, Boolean isDone, String byDateString) throws DateTimeParseException {
+    public Deadline(String description,
+                    Boolean isDone, String byDateString) throws DateTimeParseException {
         super(description, isDone);
         this.byDate = LocalDate.parse(byDateString.trim());
     }

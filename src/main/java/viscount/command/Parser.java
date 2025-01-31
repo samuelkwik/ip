@@ -10,18 +10,20 @@ public class Parser {
     private static Command handleToggle(String inputString) throws ViscountException {
         String[] splitString = inputString.split(" ");
         if (splitString.length != 2) {
-            throw new ViscountException("Invalid toggle command, please only state one index to toggle");
+            throw new ViscountException("Invalid toggle command,"
+                    + " please only state one index to toggle");
         }
         if (!splitString[1].matches("\\d+")) {
-            throw new ViscountException("Invalid toggle command, please enter a numerical index");
+            throw new ViscountException("Invalid toggle command,"
+                    + " please enter a numerical index");
         }
         return new ToggleCommand(splitString[1]);
     }
 
     private static Command handleTodo(String inputString) throws ViscountException {
         if (inputString.length() < 5 || inputString.substring(5).trim().isEmpty()) {
-            throw new ViscountException("Invalid todo command, please provide a valid todo" +
-                    "\ntodo <description>");
+            throw new ViscountException("Invalid todo command, please provide a valid todo"
+                    + "\ntodo <description>");
         }
         return new AddCommand(inputString.substring(5).trim());
     }
@@ -31,8 +33,8 @@ public class Parser {
         Pattern deadlinePattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
-            throw new ViscountException("Invalid deadline command, please provide a valid deadline" +
-                    "\ndeadline <description> /by <date>");
+            throw new ViscountException("Invalid deadline command,"
+                    + " please provide a valid deadline\ndeadline <description> /by <date>");
         }
         return new AddCommand(matcher.group(1), matcher.group(2));
     }
@@ -42,16 +44,25 @@ public class Parser {
         Pattern deadlinePattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = deadlinePattern.matcher(inputString);
         if (!matcher.matches()) {
-            throw new ViscountException("Invalid event command, please provide a valid event" +
-                    "\nevent <description> /from <date> /to <date>");
+            throw new ViscountException("Invalid event command, please provide a valid event"
+                    + "\nevent <description> /from <date> /to <date>");
         }
         return new AddCommand(matcher.group(1), matcher.group(2), matcher.group(3));
+    }
+
+    private static Command handleFind(String inputString) throws ViscountException {
+        if (inputString.length() < 5 || inputString.substring(5).trim().isEmpty()) {
+            throw new ViscountException("Invalid find command, please provide a search term" +
+                    "\nfind <search term>");
+        }
+        return new FindCommand(inputString.substring(5).trim());
     }
 
     private static Command handleDelete(String inputString) throws ViscountException {
         String[] splitString = inputString.split(" ");
         if (splitString.length != 2) {
-            throw new ViscountException("Invalid delete command, please only state one index to delete");
+            throw new ViscountException("Invalid delete command,"
+                    + " please only state one index to delete");
         }
         if (!splitString[1].matches("\\d+")) {
             throw new ViscountException("Invalid delete command, please enter a numerical index");
@@ -65,6 +76,7 @@ public class Parser {
             case "deadline" -> handleDeadline(inputString);
             case "event" -> handleEvent(inputString);
             case "list" -> new ListCommand();
+            case "find" -> handleFind(inputString);
             case "bye" -> new ByeCommand();
             case "toggle" -> handleToggle(inputString);
             case "delete" -> handleDelete(inputString);

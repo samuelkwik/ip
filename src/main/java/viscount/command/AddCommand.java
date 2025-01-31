@@ -18,13 +18,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, TextUi textUi, Storage storage) throws ViscountException {
+    public void execute(TaskList taskList,
+                        TextUi textUi, Storage storage) throws ViscountException {
             if (additionalArgs.length == 0) {
                 taskList.addTask(new ToDo(description), storage);
             } else if (additionalArgs.length == 1) {
                 taskList.addTask(new Deadline(description, additionalArgs[0]), storage);
             } else if (additionalArgs.length == 2) {
-                taskList.addTask(new Event(description, additionalArgs[0], additionalArgs[1]), storage);
+                taskList.addTask(new Event(description, additionalArgs[0],
+                        additionalArgs[1]), storage);
             }
             textUi.displayViscountText("\"" + description + "\" has been added!");
     }
