@@ -48,6 +48,14 @@ public class Parser {
         return new AddCommand(matcher.group(1), matcher.group(2), matcher.group(3));
     }
 
+    private static Command handleFind(String inputString) throws ViscountException {
+        if (inputString.length() < 5 || inputString.substring(5).trim().isEmpty()) {
+            throw new ViscountException("Invalid find command, please provide a search term" +
+                    "\nfind <search term>");
+        }
+        return new FindCommand(inputString.substring(5).trim());
+    }
+
     private static Command handleDelete(String inputString) throws ViscountException {
         String[] splitString = inputString.split(" ");
         if (splitString.length != 2) {
@@ -65,6 +73,7 @@ public class Parser {
             case "deadline" -> handleDeadline(inputString);
             case "event" -> handleEvent(inputString);
             case "list" -> new ListCommand();
+            case "find" -> handleFind(inputString);
             case "bye" -> new ByeCommand();
             case "toggle" -> handleToggle(inputString);
             case "delete" -> handleDelete(inputString);

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -26,11 +27,10 @@ public class TaskList {
         try {
             tempList = storage.readFromStorage();
             addFromList(tempList);
-        } catch ( FileNotFoundException e ) {
+        } catch (FileNotFoundException e) {
             storage.handleFileNotFound();
             throw new ViscountException("No existing saved task file found");
-        }
-        catch (ViscountException e) {
+        } catch (ViscountException e) {
             throw new ViscountException("Saved tasks file: " + e.getMessage());
         }
     }
@@ -40,14 +40,13 @@ public class TaskList {
         try {
             tasks.add(task);
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
-        }
-        catch ( IOException e ) {
+        } catch (IOException e) {
             tasks = tempList;
             throw new ViscountException("Add task FAILED: file is busy");
         }
     }
 
-    private void addTask(String taskString) throws ViscountException{
+    private void addTask(String taskString) throws ViscountException {
         String[] taskParts = taskString.split(Pattern.quote(SEPERATOR));
 
         if (taskParts.length == 3 && taskParts[0].equals("T")) {
@@ -62,36 +61,41 @@ public class TaskList {
     }
 
     public Optional<Task> toggleTask(int index, Storage storage) throws ViscountException {
-            if (index > tasks.size() || index < 1) {
-                return Optional.empty();
-            }
-            tasks.get(index - 1).toggleDone();
-            try {
-                storage.writeToStorage(getTasksFileRepresentation().orElse(""));
-                return Optional.of(tasks.get(index - 1));
-            } catch (IOException e) {
-                tasks.get(index - 1).toggleDone();
-                throw new ViscountException("Toggle task failed: File is busy");
-            }
+        if (index > tasks.size() || index < 1) {
+            return Optional.empty();
         }
+        tasks.get(index - 1).toggleDone();
+        try {
+            storage.writeToStorage(getTasksFileRepresentation().orElse(""));
+            return Optional.of(tasks.get(index - 1));
+        } catch (IOException e) {
+            tasks.get(index - 1).toggleDone();
+            throw new ViscountException("Toggle task failed: File is busy");
+        }
+    }
 
 
     public Optional<Task> getTask(int index) {
         if (index > tasks.size() || index < 1) {
             return Optional.empty();
         }
-        return Optional.of(tasks.get(index-1));
+        return Optional.of(tasks.get(index - 1));
     }
 
-    public Optional<String> getTasks() {
+    public Optional<String> getTasksString() {
         if (tasks.isEmpty()) {
             return Optional.empty();
         } else {
-            Optional<String> taskListString = IntStream.range(0, tasks.size())
-                    .mapToObj(i -> "\t" + (i + 1) + ". " + tasks.get(i).toString())
+            Optional<String> taskListString = getTasksStreamWithIndex()
                     .reduce((s1, s2) -> s1 + "\n" + s2);
             return taskListString;
         }
+    }
+
+    public Stream<String> getTasksStreamWithIndex() {
+        Stream<String> tasksStream = IntStream.range(0, tasks.size())
+                .mapToObj(i -> "\t" + (i + 1) + ". " + tasks.get(i).toString());
+        return tasksStream;
     }
 
     public Optional<String> getTaskFileRepresentation(int index) {
@@ -114,7 +118,7 @@ public class TaskList {
         Optional<Task> deletedTask = getTask(index);
         ArrayList<Task> tempList = new ArrayList<>(tasks);
         try {
-            tasks.remove(index-1);
+            tasks.remove(index - 1);
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
         } catch (IOException e) {
             tasks = tempList;
@@ -125,7 +129,7 @@ public class TaskList {
         return deletedTask;
     }
 
-    private void addFromList(ArrayList<String> list) throws ViscountException{
+    private void addFromList(ArrayList<String> list) throws ViscountException {
         if (list.isEmpty()) {
             return;
         }
