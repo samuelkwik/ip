@@ -1,6 +1,7 @@
 package viscount.command;
 
 import org.junit.jupiter.api.Test;
+
 import viscount.ViscountException;
 
 import static org.junit.jupiter.api.Assertions.*;

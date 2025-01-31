@@ -5,6 +5,12 @@ import viscount.ViscountException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class is responsible for interpreting and parsing user input commands
+ * into their respective Command objects. Each command entered by the user is
+ * routed to an appropriate handler based on the command type, where it is validated
+ * and converted into a specific subclass of the Command class.
+ */
 public class Parser {
 
     private static Command handleToggle(String inputString) throws ViscountException {
@@ -70,6 +76,16 @@ public class Parser {
         return new DeleteCommand(splitString[1]);
     }
 
+    /**
+     * Parses a given input string and returns the corresponding Command object.
+     * This method determines the type of command based on the first word of the
+     * input and delegates the processing to appropriate handlers.
+     *
+     * @param inputString The input string entered by the user, representing a command.
+     * @return A Command object representing the user's intended action.
+     * @throws ViscountException If the input string format does not match the intended
+     *                           command
+     */
     public static Command parse(String inputString) throws ViscountException {
         return switch (inputString.toLowerCase().split(" ")[0]) {
             case "todo" -> handleTodo(inputString);
