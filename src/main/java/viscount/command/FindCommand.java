@@ -13,7 +13,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, TextUi textUi, Storage storage) throws ViscountException {
+    public void execute(TaskList taskList,
+                        TextUi textUi, Storage storage) throws ViscountException {
         String findResults = taskList.getTasksStreamWithIndex()
                 .filter(s -> s.contains(searchTerm))
                 .reduce((s1, s2) -> s1 + "\n" + s2)
