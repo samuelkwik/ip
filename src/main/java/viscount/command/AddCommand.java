@@ -47,6 +47,11 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList taskList,
                         TextUi textUi, Storage storage) throws ViscountException {
+        textUi.displayViscountText(execute(taskList, storage));
+    }
+
+    @Override
+    public String execute(TaskList taskList, Storage storage) throws ViscountException {
         if (additionalArgs.length == 0) {
             taskList.addTask(new ToDo(description), storage);
         } else if (additionalArgs.length == 1) {
@@ -55,6 +60,6 @@ public class AddCommand extends Command {
             taskList.addTask(new Event(description, additionalArgs[0],
                     additionalArgs[1]), storage);
         }
-        textUi.displayViscountText("\"" + description + "\" has been added!");
+        return "\"" + description + "\" has been added!";
     }
 }

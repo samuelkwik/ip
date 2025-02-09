@@ -24,10 +24,11 @@ public class Viscount {
      *
      * @param filePath The file path for loading and saving task data.
      */
-    public Viscount(String filePath) {
+    public Viscount(String filePath) throws ViscountException {
         taskList = new TaskList(filePath);
         storage = new Storage(filePath);
     }
+
 
     /**
      * Initializes a default instance of the Viscount chatbot.
@@ -38,6 +39,16 @@ public class Viscount {
     public Viscount() {
         taskList = new TaskList(DEFAULT_FILEPATH);
         storage = new Storage(DEFAULT_FILEPATH);
+    }
+
+    public void loadFromStorage() throws ViscountException {
+        this.taskList.initialize(storage);
+    }
+
+    public String getResponse(String userInput) throws ViscountException {
+        Command parsedCommand;
+        parsedCommand = Parser.parse(userInput);
+        return parsedCommand.execute(taskList, storage);
     }
 
     /**
@@ -53,7 +64,7 @@ public class Viscount {
         boolean isChatting = true;
 
         try {
-            this.taskList.initialize(storage);
+            loadFromStorage();
         } catch (ViscountException e) {
             textUi.displayViscountText(e.getMessage());
         }
@@ -65,7 +76,7 @@ public class Viscount {
             Command parsedCommand;
             try {
                 parsedCommand = Parser.parse(inputString);
-                parsedCommand.execute(taskList, textUi, storage);
+                textUi.displayViscountText(parsedCommand.execute(taskList, storage));
                 isChatting = !(parsedCommand.isExitCommand());
             } catch (ViscountException e) {
                 textUi.displayViscountText(e.getMessage());

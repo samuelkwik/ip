@@ -53,7 +53,7 @@ public class TaskList {
             storage.handleFileNotFound();
             throw new ViscountException("No existing saved task file found");
         } catch (ViscountException e) {
-            throw new ViscountException("Saved tasks file: " + e.getMessage());
+            throw new ViscountException("Saved tasks file corrupted: " + e.getMessage());
         }
     }
 
@@ -170,7 +170,7 @@ public class TaskList {
      */
     public Stream<String> getTasksStreamWithIndex() {
         Stream<String> tasksStream = IntStream.range(0, tasks.size())
-                .mapToObj(i -> "\t" + (i + 1) + ". " + tasks.get(i).toString());
+                .mapToObj(i -> "  " + (i + 1) + ". " + tasks.get(i).toString());
         return tasksStream;
     }
 
