@@ -1,6 +1,7 @@
 package viscount.command;
 
 import viscount.Storage;
+import viscount.task.Task;
 import viscount.task.TaskList;
 import viscount.TextUi;
 
@@ -19,8 +20,12 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, TextUi textUi, Storage storage) {
-        textUi.displayViscountText(taskList.getTasksString()
+        textUi.displayViscountText(execute(taskList, storage));
+    }
+
+    public String execute(TaskList taskList, Storage storage) {
+        return taskList.getTasksString()
                 .map(s -> "Here is your list of tasks: \n" + s)
-                .orElse("You have no tasks"));
+                .orElse("You have no tasks");
     }
 }

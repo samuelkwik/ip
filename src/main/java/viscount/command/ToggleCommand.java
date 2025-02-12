@@ -36,15 +36,19 @@ public class ToggleCommand extends Command {
     @Override
     public void execute(TaskList taskList,
                         TextUi textUi, Storage storage) throws ViscountException {
+        textUi.displayViscountText(execute(taskList, storage));
+    }
+
+    public String execute(TaskList taskList, Storage storage) throws ViscountException {
         try {
             int index = Integer.parseInt(indexStr);
             String outcome = taskList.toggleTask(index, storage)
                     .map(task -> "\"" + task.getDescription()
                             + "\" marked " + (task.isDone() ? "" : "in") + "complete")
                     .orElse("TOGGLE: No task found with that index");
-            textUi.displayViscountText(outcome);
+            return outcome;
         } catch (NumberFormatException e) {
-            textUi.displayViscountText("TOGGLE: Please enter a valid numerical index");
+            throw new ViscountException("TOGGLE: Please enter a valid numerical index");
         }
     }
 }

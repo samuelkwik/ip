@@ -1,0 +1,26 @@
+.label {
+    -fx-background-color: linear-gradient(to right, #59c2fa, #c1f6ee);
+    -fx-background-radius: 1em 0 1em 1em;
+    -fx-font: 16px "Arial";
+    -fx-text-fill: #444444;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to right, #daf4d1, #c3d3d2);
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-font: 14px "Courier New"
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to right, #f4efd1, #fb8371);
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-border-width: 10px;
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

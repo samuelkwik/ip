@@ -1,6 +1,7 @@
 package viscount.command;
 
 import viscount.Storage;
+import viscount.task.Task;
 import viscount.task.TaskList;
 import viscount.TextUi;
 import viscount.ViscountException;
@@ -13,6 +14,8 @@ import viscount.ViscountException;
 public abstract class Command {
     public abstract void execute(TaskList taskList,
                                  TextUi textUi, Storage storage) throws ViscountException;
+
+    public abstract String execute(TaskList taskList, Storage storage) throws ViscountException;
 
     /**
      * Indicates whether this command is an exit command.
