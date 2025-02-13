@@ -16,6 +16,9 @@ public class AddCommand extends Command {
     private final String description;
     private final String[] additionalArgs;
 
+    private static int ARGUMENT_LENGTH_TODO = 0;
+    private static int ARGUMENT_LENGTH_DEADLINE = 1;
+    private static int ARGUMENT_LENGTH_EVENT = 2;
     /**
      * Constructs an AddCommand object to add a task to the task list.
      * The type task is determined based on the provided description
@@ -52,11 +55,11 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) throws ViscountException {
-        if (additionalArgs.length == 0) {
+        if (additionalArgs.length == ARGUMENT_LENGTH_TODO) {
             taskList.addTask(new ToDo(description), storage);
-        } else if (additionalArgs.length == 1) {
+        } else if (additionalArgs.length == ARGUMENT_LENGTH_DEADLINE) {
             taskList.addTask(new Deadline(description, additionalArgs[0]), storage);
-        } else if (additionalArgs.length == 2) {
+        } else if (additionalArgs.length == ARGUMENT_LENGTH_EVENT) {
             taskList.addTask(new Event(description, additionalArgs[0],
                     additionalArgs[1]), storage);
         } else {

@@ -57,11 +57,12 @@ public class Parser {
     }
 
     private static Command handleFind(String inputString) throws ViscountException {
-        if (inputString.length() < 5 || inputString.substring(5).trim().isEmpty()) {
-            throw new ViscountException("Invalid find command, please provide a search term" +
-                    "\nfind <search term>");
+        String searchTerm = inputString.substring(5).trim();
+        if (inputString.length() < 5 || searchTerm.isEmpty()) {
+            throw new ViscountException("Invalid find command, please provide a search term"
+                    + "\nfind <search term>");
         }
-        return new FindCommand(inputString.substring(5).trim());
+        return new FindCommand(searchTerm);
     }
 
     private static Command handleDelete(String inputString) throws ViscountException {
