@@ -59,6 +59,9 @@ public class AddCommand extends Command {
         } else if (additionalArgs.length == 2) {
             taskList.addTask(new Event(description, additionalArgs[0],
                     additionalArgs[1]), storage);
+        } else {
+            assert additionalArgs.length > 2 : "Invalid add command state:"
+                    + " Parser failed to parse arguments correctly";
         }
         return "\"" + description + "\" has been added!";
     }

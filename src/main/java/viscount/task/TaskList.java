@@ -76,6 +76,8 @@ public class TaskList {
             tasks = tempList;
             throw new ViscountException("Add task FAILED: file is busy");
         }
+        assert tasks.size() == tempList.size() + 1 : "Invalid State: "
+                + "Add failed without exception";
     }
 
     private void addFromList(ArrayList<String> list) throws ViscountException {
@@ -85,6 +87,8 @@ public class TaskList {
         for (String s : list) {
             addTaskFromFileRepresentation(s);
         }
+        assert tasks.size() == list.size() : "Invalid state: "
+                + " task list size mismatch during loading from storage";
     }
 
     private void addTaskFromFileRepresentation(String taskString) throws ViscountException {
@@ -214,8 +218,10 @@ public class TaskList {
             tasks = tempList;
             throw new ViscountException("Delete task FAILED: file is busy");
         } catch (IndexOutOfBoundsException e) {
+            tasks = tempList;
             throw new ViscountException("DELETE: Invalid task index: " + index);
         }
+        assert tasks.size() == tempList.size() - 1 : "Delete failed without exception";
         return deletedTask;
     }
 }
