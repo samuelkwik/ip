@@ -20,9 +20,11 @@ public class ByeCommand extends Command {
     public void execute(TaskList taskList, TextUi textUi, Storage storage) {
         textUi.sayGoodbye();
     }
+
     public String execute(TaskList taskList, Storage storage) {
         return "Close the application by clicking the X button";
     }
+
     /**
      * Indicates this command is an exit command that terminates the program.
      *
