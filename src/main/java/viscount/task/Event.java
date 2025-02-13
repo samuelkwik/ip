@@ -60,6 +60,11 @@ public class Event extends Task {
         }
     }
 
+    @Override
+    public Task toggleDone() {
+        return new Event(getDescription(), !isDone(), fromDate.toString(), toDate.toString());
+    }
+
     /**
      * Generates a string representation of the Event task in a file-specific format.
      *

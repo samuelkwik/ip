@@ -97,6 +97,7 @@ public class Parser {
             case "bye" -> new ByeCommand();
             case "toggle" -> handleToggle(inputString);
             case "delete" -> handleDelete(inputString);
+            case "undo" -> new UndoCommand();
             default -> new UnknownCommand();
         };
     }

@@ -24,6 +24,8 @@ public class TaskList {
     private final String filePath;
     private static String SEPERATOR = " | ";
 
+    private Optional<ArrayList<Task>> previousTasks = Optional.empty();
+
     /**
      * Constructs a TaskList object that initializes an empty task list
      * and sets the file path for storage.
@@ -69,10 +71,13 @@ public class TaskList {
      */
     public void addTask(Task task, Storage storage) throws ViscountException {
         ArrayList<Task> tempList = new ArrayList<>(tasks);
+        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
+        previousTasks = Optional.of(new ArrayList<>(this.tasks));
         try {
             tasks.add(task);
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
         } catch (IOException e) {
+            previousTasks = tempPreviousTasks;
             tasks = tempList;
             throw new ViscountException("Add task FAILED: file is busy");
         }
@@ -122,11 +127,15 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             return Optional.empty();
         }
-        tasks.get(index - 1).toggleDone();
+        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
+        previousTasks = Optional.of(new ArrayList<>(this.tasks));
+        Task toggledTask = tasks.get(index-1).toggleDone();
+        tasks.set(index-1, toggledTask);
         try {
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
             return Optional.of(tasks.get(index - 1));
         } catch (IOException e) {
+            previousTasks = tempPreviousTasks;
             tasks.get(index - 1).toggleDone();
             throw new ViscountException("Toggle task failed: File is busy");
         }
@@ -211,17 +220,37 @@ public class TaskList {
     public Optional<Task> deleteTask(int index, Storage storage) throws ViscountException {
         Optional<Task> deletedTask = getTask(index);
         ArrayList<Task> tempList = new ArrayList<>(tasks);
+
+        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
+        previousTasks = Optional.of(new ArrayList<>(this.tasks));
         try {
             tasks.remove(index - 1);
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
         } catch (IOException e) {
             tasks = tempList;
+            previousTasks = tempPreviousTasks;
             throw new ViscountException("Delete task FAILED: file is busy");
         } catch (IndexOutOfBoundsException e) {
             tasks = tempList;
+            previousTasks = tempPreviousTasks;
             throw new ViscountException("DELETE: Invalid task index: " + index);
         }
         assert tasks.size() == tempList.size() - 1 : "Delete failed without exception";
         return deletedTask;
+    }
+    public String undoTask(Storage storage) throws ViscountException {
+        return previousTasks.map(previous -> {
+            ArrayList<Task> temp = new ArrayList<>(tasks);
+            tasks = previous;
+            try {
+                storage.writeToStorage(getTasksFileRepresentation().orElse(""));
+            } catch (IOException e) {
+                tasks = temp;
+                throw new ViscountException("Undo task FAILED: file is busy");
+            }
+            previousTasks = Optional.empty();
+            return "Undo task SUCCESSFUL\nHere are your tasks:\n" + getTasksString()
+                    .orElse("No tasks found");
+        }).orElseThrow(() -> new ViscountException("Undo task FAILED: no previous tasks"));
     }
 }
