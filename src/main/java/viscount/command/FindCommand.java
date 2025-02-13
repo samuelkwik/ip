@@ -43,7 +43,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList taskList,
                         TextUi textUi, Storage storage) {
-        textUi.displayViscountText(execute(taskList,storage));
+        textUi.displayViscountText(execute(taskList, storage));
     }
 
     public String execute(TaskList taskList, Storage storage) {
