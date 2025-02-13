@@ -38,8 +38,9 @@ public class Task {
      * If the task is currently marked as done, it will be marked as not done.
      * If the task is currently marked as not done, it will be marked as done.
      */
-    public void toggleDone() {
+    public Task toggleDone() {
         this.isDone = !this.isDone;
+        return new Task(this.description, this.isDone);
     }
 
     /**

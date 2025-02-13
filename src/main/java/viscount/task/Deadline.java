@@ -47,6 +47,11 @@ public class Deadline extends Task {
         this.byDate = LocalDate.parse(byDateString.trim());
     }
 
+    @Override
+    public Task toggleDone() {
+        return new Deadline(getDescription(), !isDone(), byDate.toString());
+    }
+
     /**
      * Generates a string representation of the Deadline task in a file-specific format.
      *

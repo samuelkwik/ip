@@ -27,6 +27,11 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
+    @Override
+    public Task toggleDone() {
+        return new ToDo(getDescription(), !isDone());
+    }
+
     /**
      * Generates a string representation of the ToDo task in a file-specific format.
      *
