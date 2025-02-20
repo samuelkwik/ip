@@ -12,7 +12,7 @@ It's not yet a Duke, meet 'Viscount'! For when you already have a calendar app i
 
 - [Welcome to `Viscount`](#welcome-to-viscount)
 - [Feature Overview](#feature-overview)
-  - [Listing Your Tasks](#listing-your-tasks)
+  - [Listing Your Tasks:list](#listing-your-tasks)
   - [Adding Todos](#adding-todos)
   - [Adding Deadlines](#adding-deadlines)
   - [Adding Events](#adding-events)
