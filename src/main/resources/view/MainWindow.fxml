@@ -28,7 +28,7 @@
               </ScrollPane>
          </children>
       </AnchorPane>
-        <TextField fx:id="userInput" layoutX="10.4" layoutY="555.0" onAction="#handleUserInput" prefHeight="42.0" prefWidth="316.0" promptText="Chat message" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="553.6">
+        <TextField fx:id="userInput" layoutX="10.4" layoutY="555.0" onAction="#handleUserInput" prefHeight="42.0" prefWidth="345.0" promptText="Chat message" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="51.0">
          <padding>
             <Insets top="6.0" />
          </padding></TextField>

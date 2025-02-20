@@ -11,8 +11,8 @@
 }
 
 .button {
-    -fx-background-color: #ffdd00;
-    -fx-background-radius: 3em 3em 3em 3em;
+    -fx-background-color: #f7beff;
+    -fx-background-radius: 1em 1em 1em 1em;
     -fx-font: italic bold 16px "Arial";
 }
 
