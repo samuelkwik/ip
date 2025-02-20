@@ -66,11 +66,11 @@ public class Task {
      * The representation includes the completion status of the task and its description, separated by the provided
      * delimiter.
      *
-     * @param seperator The string to use as the delimiter between the completion status and the task description.
+     * @param separator The string to use as the delimiter between the completion status and the task description.
      * @return A string representing the task in file format, formatted as "completion_status separator description".
      */
-    public String getFileRepresentation(String seperator) {
-        return (this.isDone ? "X" : " ") + seperator + this.description;
+    public String getFileRepresentation(String separator) {
+        return (this.isDone ? "X" : " ") + separator + this.description;
     }
 
     /**

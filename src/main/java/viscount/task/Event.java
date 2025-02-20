@@ -15,13 +15,13 @@ public class Event extends Task {
     private final LocalDate toDate;
 
     /**
-     * Constructs an Evenet object with a description and from and to dates.
+     * Constructs an Event object with a description and from and to dates.
      * The Event dates are parsed from the provided string representations.
      *
      * @param description    The description of the task.
      * @param fromDateString The string representation of the date by which the Event starts.
      *                       This date is parsed into a LocalDate object.
-     * @param toDateString   The string reprsentation of the date by which the Event ends.
+     * @param toDateString   The string representation of the date by which the Event ends.
      *                       This date is parsed into a LocalDate object
      * @throws DateTimeParseException If the provided date strings cannot be
      *                                parsed to a valid LocalDate
@@ -45,8 +45,8 @@ public class Event extends Task {
      * @param isDone         The initial completion status of the task.
      * @param fromDateString The string representation of the date by which the Event starts.
      *                       This date is parsed into a LocalDate object.
-     * @param toDateString   The string reprsentation of the date by which the Event ends.
-     *                       This date is parsed into a LocalDate ob ject
+     * @param toDateString   The string representation of the date by which the Event ends.
+     *                       This date is parsed into a LocalDate object
      * @throws DateTimeParseException If the provided date strings cannot be parsed to a valid LocalDate
      *                                or if the end date is before the start date.
      */
@@ -68,13 +68,13 @@ public class Event extends Task {
     /**
      * Generates a string representation of the Event task in a file-specific format.
      *
-     * @param seperator The string to use as a delimiter between the components of the representation.
+     * @param separator The string to use as a delimiter between the components of the representation.
      * @return A string representing the Event task in the required file representation.
      */
     @Override
-    public String getFileRepresentation(String seperator) {
-        return "E" + seperator + super.getFileRepresentation(seperator)
-                + seperator + fromDate + seperator + toDate;
+    public String getFileRepresentation(String separator) {
+        return "E" + separator + super.getFileRepresentation(separator)
+                + separator + fromDate + separator + toDate;
     }
 
     /**

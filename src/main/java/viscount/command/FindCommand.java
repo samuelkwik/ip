@@ -2,8 +2,6 @@ package viscount.command;
 
 import viscount.Storage;
 import viscount.TextUi;
-import viscount.ViscountException;
-import viscount.task.Task;
 import viscount.task.TaskList;
 
 /**

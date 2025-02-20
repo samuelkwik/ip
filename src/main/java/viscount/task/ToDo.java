@@ -1,7 +1,5 @@
 package viscount.task;
 
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a general task
  * A ToDo task extends the functionality of the Task class.
@@ -35,14 +33,14 @@ public class ToDo extends Task {
     /**
      * Generates a string representation of the ToDo task in a file-specific format.
      *
-     * @param seperator The string to use as a delimiter between
+     * @param separator The string to use as a delimiter between
      *                  the components of the representation.
      * @return A string representing the ToDo task in the
      * required file representation.
      */
     @Override
-    public String getFileRepresentation(String seperator) {
-        return "T" + seperator + super.getFileRepresentation(seperator);
+    public String getFileRepresentation(String separator) {
+        return "T" + separator + super.getFileRepresentation(separator);
     }
 
 

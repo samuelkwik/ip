@@ -1,7 +1,5 @@
 package viscount;
 
-import java.util.Scanner;
-
 /**
  * The TextUi class provides various utility methods for user interface in the
  * Viscount chatbot application.

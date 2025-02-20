@@ -55,14 +55,14 @@ public class Deadline extends Task {
     /**
      * Generates a string representation of the Deadline task in a file-specific format.
      *
-     * @param seperator The string to use as a delimiter between
+     * @param separator The string to use as a delimiter between
      *                  the components of the representation.
      * @return A string representing the Deadline task in the
      * required file representation.
      */
     @Override
-    public String getFileRepresentation(String seperator) {
-        return "D" + seperator + super.getFileRepresentation(seperator) + seperator + byDate;
+    public String getFileRepresentation(String separator) {
+        return "D" + separator + super.getFileRepresentation(separator) + separator + byDate;
     }
 
     /**

@@ -21,20 +21,16 @@ import java.util.stream.Stream;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-    private final String filePath;
-    private static String SEPERATOR = " | ";
+    private static final String SEPARATOR = " | ";
 
     private Optional<ArrayList<Task>> previousTasks = Optional.empty();
 
     /**
      * Constructs a TaskList object that initializes an empty task list
      * and sets the file path for storage.
-     *
-     * @param filePath The file path used for task storage and retrieval.
      */
-    public TaskList(String filePath) {
+    public TaskList() {
         tasks = new ArrayList<>();
-        this.filePath = filePath;
     }
 
     /**
@@ -47,7 +43,7 @@ public class TaskList {
      *                           processing the stored task data.
      */
     public void initialize(Storage storage) throws ViscountException {
-        ArrayList<String> tempList = new ArrayList<>();
+        ArrayList<String> tempList;
         try {
             tempList = storage.readFromStorage();
             addFromList(tempList);
@@ -71,7 +67,7 @@ public class TaskList {
      */
     public void addTask(Task task, Storage storage) throws ViscountException {
         ArrayList<Task> tempList = new ArrayList<>(tasks);
-        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
+        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(ArrayList::new);
         previousTasks = Optional.of(new ArrayList<>(this.tasks));
         try {
             tasks.add(task);
@@ -97,7 +93,7 @@ public class TaskList {
     }
 
     private void addTaskFromFileRepresentation(String taskString) throws ViscountException {
-        String[] taskParts = taskString.split(Pattern.quote(SEPERATOR));
+        String[] taskParts = taskString.split(Pattern.quote(SEPARATOR));
 
         if (taskParts.length == 3 && taskParts[0].equals("T")) {
             tasks.add(new ToDo(taskParts[2], taskParts[1].contains("X")));
@@ -127,7 +123,7 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             return Optional.empty();
         }
-        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
+        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(ArrayList::new);
         previousTasks = Optional.of(new ArrayList<>(this.tasks));
         Task toggledTask = tasks.get(index - 1).toggleDone();
         tasks.set(index - 1, toggledTask);
@@ -200,7 +196,7 @@ public class TaskList {
             return Optional.empty();
         } else {
             return tasks.stream()
-                    .map(task -> task.getFileRepresentation(SEPERATOR))
+                    .map(task -> task.getFileRepresentation(SEPARATOR))
                     .reduce((s1, s2) -> s1 + "\n" + s2);
         }
     }
@@ -221,7 +217,7 @@ public class TaskList {
         Optional<Task> deletedTask = getTask(index);
         ArrayList<Task> tempList = new ArrayList<>(tasks);
 
-        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
+        Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(ArrayList::new);
         previousTasks = Optional.of(new ArrayList<>(this.tasks));
         try {
             tasks.remove(index - 1);

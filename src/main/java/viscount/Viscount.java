@@ -20,7 +20,7 @@ public class Viscount {
      * @param filePath The file path for loading and saving task data.
      */
     public Viscount(String filePath) throws ViscountException {
-        taskList = new TaskList(filePath);
+        taskList = new TaskList();
         storage = new Storage(filePath);
     }
 
@@ -32,7 +32,7 @@ public class Viscount {
      * The default file path is used to load and save task data.
      */
     public Viscount() {
-        taskList = new TaskList(DEFAULT_FILEPATH);
+        taskList = new TaskList();
         storage = new Storage(DEFAULT_FILEPATH);
     }
 
@@ -75,7 +75,6 @@ public class Viscount {
                 isChatting = !(parsedCommand.isExitCommand());
             } catch (ViscountException e) {
                 textUi.displayViscountText(e.getMessage());
-                continue;
             }
         }
     }

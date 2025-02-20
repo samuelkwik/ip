@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
      * @param indexStr The index of the task to be deleted, provided as a string.
      */
     public DeleteCommand(String indexStr) {
-        this.indexStr = indexStr + "";
+        this.indexStr = indexStr;
     }
 
     /**
