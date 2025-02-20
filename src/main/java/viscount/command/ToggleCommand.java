@@ -39,6 +39,17 @@ public class ToggleCommand extends Command {
         textUi.displayViscountText(execute(taskList, storage));
     }
 
+    /**
+     * Executes the toggle command to change the completion status of a task.
+     * Parses the index of the task from the provided input, retrieves the task,
+     * toggles its status, and writes the updated task list to storage.
+     * Displays the outcome to the user via the text UI.
+     *
+     * @param taskList The TaskList containing all current tasks.
+     * @param storage  The Storage handler for reading and writing tasks to the storage file.
+     * @return A String confirming the task that is toggled.
+     * @throws ViscountException If there is an issue accessing the storage or toggling the task status.
+     */
     public String execute(TaskList taskList, Storage storage) throws ViscountException {
         try {
             int index = Integer.parseInt(indexStr);

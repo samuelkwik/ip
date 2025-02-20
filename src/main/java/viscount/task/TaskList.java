@@ -129,8 +129,8 @@ public class TaskList {
         }
         Optional<ArrayList<Task>> tempPreviousTasks = previousTasks.map(a -> new ArrayList<>(a));
         previousTasks = Optional.of(new ArrayList<>(this.tasks));
-        Task toggledTask = tasks.get(index-1).toggleDone();
-        tasks.set(index-1, toggledTask);
+        Task toggledTask = tasks.get(index - 1).toggleDone();
+        tasks.set(index - 1, toggledTask);
         try {
             storage.writeToStorage(getTasksFileRepresentation().orElse(""));
             return Optional.of(tasks.get(index - 1));
@@ -238,6 +238,7 @@ public class TaskList {
         assert tasks.size() == tempList.size() - 1 : "Delete failed without exception";
         return deletedTask;
     }
+
     public String undoTask(Storage storage) throws ViscountException {
         return previousTasks.map(previous -> {
             ArrayList<Task> temp = new ArrayList<>(tasks);

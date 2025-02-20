@@ -38,7 +38,6 @@ public class FindCommand extends Command {
      * @param textUi   The TextUi for user interaction and displaying messages.
      * @param storage  The Storage handler for reading and writing tasks
      *                 to the storage file. (not used here)
-     * @throws ViscountException If any unexpected error occurs during execution.
      */
     @Override
     public void execute(TaskList taskList,
@@ -46,6 +45,18 @@ public class FindCommand extends Command {
         textUi.displayViscountText(execute(taskList, storage));
     }
 
+    /**
+     * Executes the FindCommand by searching for tasks within the provided task list
+     * that match the specified search term. The search is case-sensitive and looks for
+     * the presence of the term within the task descriptions. The results are displayed
+     * using the provided text UI. If no tasks match the search term, an appropriate
+     * "no results found" message is shown.
+     *
+     * @param taskList The TaskList containing all current tasks.
+     * @param storage  The Storage handler for reading and writing tasks
+     *                 to the storage file. (not used here)
+     * @return A String with the list of found tasks (if any).
+     */
     public String execute(TaskList taskList, Storage storage) {
         String findResults =
                 taskList.getTasksStreamWithIndex()

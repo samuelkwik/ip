@@ -19,6 +19,7 @@ public class AddCommand extends Command {
     private static int ARGUMENT_LENGTH_TODO = 0;
     private static int ARGUMENT_LENGTH_DEADLINE = 1;
     private static int ARGUMENT_LENGTH_EVENT = 2;
+
     /**
      * Constructs an AddCommand object to add a task to the task list.
      * The type task is determined based on the provided description
@@ -53,6 +54,16 @@ public class AddCommand extends Command {
         textUi.displayViscountText(execute(taskList, storage));
     }
 
+    /**
+     * Executes the addition of a task to the task list. Determines the appropriate task type
+     * based on the number of additional arguments provided and adds it to the task list.
+     *
+     * @param taskList The TaskList containing all current tasks.
+     * @param storage  The Storage handler for saving tasks to persistent storage.
+     * @return A String confirming the addition of the task, including its description.
+     * @throws ViscountException If there is an error adding the task due to incorrect formatting
+     *                           or storing it in persistent storage.
+     */
     @Override
     public String execute(TaskList taskList, Storage storage) throws ViscountException {
         if (additionalArgs.length == ARGUMENT_LENGTH_TODO) {

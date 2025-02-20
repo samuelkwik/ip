@@ -21,7 +21,16 @@ public class ByeCommand extends Command {
         textUi.sayGoodbye();
     }
 
+    /**
+     * Executes a command to terminate the program
+     *
+     * @param taskList The TaskList containing all current tasks. (not used here)
+     * @param storage  The Storage handler for reading and writing tasks
+     *                 to the storage file. (not used here)
+     * @return A String advising user to close the application (never reached).
+     */
     public String execute(TaskList taskList, Storage storage) {
+        System.exit(0);
         return "Close the application by clicking the X button";
     }
 

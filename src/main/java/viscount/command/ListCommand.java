@@ -23,6 +23,14 @@ public class ListCommand extends Command {
         textUi.displayViscountText(execute(taskList, storage));
     }
 
+    /**
+     * Executes the command to display the list of tasks.
+     *
+     * @param taskList The TaskList containing all current tasks.
+     * @param storage  The Storage handler for reading and writing tasks to
+     *                 the storage file. (not used here)
+     * @return A String of the task list if there are tasks.
+     */
     public String execute(TaskList taskList, Storage storage) {
         return taskList.getTasksString()
                 .map(s -> "Here is your list of tasks: \n" + s)

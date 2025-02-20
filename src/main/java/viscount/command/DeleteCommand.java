@@ -41,6 +41,18 @@ public class DeleteCommand extends Command {
         textUi.displayViscountText(execute(taskList, storage));
     }
 
+    /**
+     * Executes the delete operation by removing a task from the given task list
+     * based on the index provided as a string during the command creation.
+     * It displays an appropriate success message if the task is successfully
+     * deleted or an error message if failed.
+     *
+     * @param taskList The TaskList containing all current tasks.
+     * @param storage  The Storage handler for reading and writing tasks to the storage file.
+     * @return A String confirming the deletion of the task along with the description.
+     * @throws ViscountException If there is an error during writing to the storage or
+     *                           an invalid index is provided.
+     */
     public String execute(TaskList taskList, Storage storage) throws ViscountException {
         try {
             int index = Integer.parseInt(indexStr);
