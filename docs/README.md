@@ -12,7 +12,7 @@ It's not yet a Duke, meet 'Viscount'! For when you already have a calendar app i
 
 - [Welcome to `Viscount`](#welcome-to-viscount)
 - [Feature Overview](#feature-overview)
-  - [Listing Your Tasks](#listing-your-tasks)
+  - [Listing Your Tasks:list](#listing-your-tasks)
   - [Adding Todos](#adding-todos)
   - [Adding Deadlines](#adding-deadlines)
   - [Adding Events](#adding-events)
@@ -139,7 +139,7 @@ or
 ---
 
 ### Finding a Task
-Need to lookup tasks containing a search term? Find it!
+Need to look up tasks containing a search term? Find it!
 
 **Command Syntax:**
 ```
@@ -207,7 +207,7 @@ Here are your tasks:
 | **[Todo](#adding-todos)**         | `todo <task description>` <br> _E.g._ `todo Complete homework`                                                                                                    |
 | **[Deadline](#adding-deadlines)** | `deadline <task description> /by <due date in YYYY-MM-DD format>` <br> _E.g._ `deadline Submit application /by 2025-02-28`                                        |
 | **[Event](#adding-events)**       | `event <description> /from <start date in YYYY-MM-DD format> /to <end date in YYYY-MM-DD format>` <br> _E.g._ `event Career Fair /from 2025-02-17 /to 2025-02-28` |
-| **[Toggle](#toggling-a-task)**    | `toggle <task number>` <br> _E.g._ `toggle 1`                                                                                                                     |                                                           |
+| **[Toggle](#toggling-a-task)**    | `toggle <task number>` <br> _E.g._ `toggle 1`                                                                                                                     |      
 | **[Find](#finding-a-task)**       | `find <search term>` <br> _E.g._ `find assignment`                                                                                                                |
 | **[Delete](#deleting-a-task)**    | `delete <task number>` <br> _E.g._ `delete 4`                                                                                                                     |
 | **[Undo](#undo-last-command)**    | `undo`                                                                                                                                                            |
