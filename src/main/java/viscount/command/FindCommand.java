@@ -51,7 +51,7 @@ public class FindCommand extends Command {
                 taskList.getTasksStreamWithIndex()
                         .filter(s -> s.contains(searchTerm))
                         .reduce((s1, s2) -> s1 + "\n" + s2)
-                        .orElse("Find: [" + searchTerm + "] : No results found");
+                        .orElse("No results found");
         return "Find: [" + searchTerm + "]\n" + findResults;
     }
 }

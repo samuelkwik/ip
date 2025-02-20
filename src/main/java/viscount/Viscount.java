@@ -6,11 +6,6 @@ import viscount.task.TaskList;
 
 import java.util.Scanner;
 
-/**
- * The Viscount class serves as the entry point to the chatbot application.
- * It is responsible for initializing the task management components,
- * handling user input, and facilitating the interaction between the user and the chatbot.
- */
 public class Viscount {
     private static final String DEFAULT_FILEPATH = ".data/saved_tasks.txt";
     private TaskList taskList;

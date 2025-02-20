@@ -57,8 +57,12 @@ public class Parser {
     }
 
     private static Command handleFind(String inputString) throws ViscountException {
+        if (inputString.trim().length() < 5) {
+            throw new ViscountException("Invalid find command, please provide a search term"
+                    + "\nfind <search term>");
+        }
         String searchTerm = inputString.substring(5).trim();
-        if (inputString.length() < 5 || searchTerm.isEmpty()) {
+        if (searchTerm.isEmpty()) {
             throw new ViscountException("Invalid find command, please provide a search term"
                     + "\nfind <search term>");
         }
