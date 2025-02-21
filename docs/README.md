@@ -212,5 +212,6 @@ Here are your tasks:
 | **[Find](#finding-a-task)**       | `find <search term>` <br> _E.g._ `find assignment`                                                                                                                |
 | **[Delete](#deleting-a-task)**    | `delete <task number>` <br> _E.g._ `delete 4`                                                                                                                     |
 | **[Undo](#undo-last-command)**    | `undo`                                                                                                                                                            |
+
 ### AI ACKNOWLEDGEMENTS
 AI was used to aid in writing JavaDoc comments for all public methods.
