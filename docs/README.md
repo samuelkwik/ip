@@ -202,16 +202,16 @@ Here are your tasks:
 
 ### Table of Commands
 
-| Command                           | Usage Example                                                                                                                                                     |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **[List](#listing-your-tasks)**   | `list`                                                                                                                                                            |
-| **[Todo](#adding-todos)**         | `todo <task description>` <br> _E.g._ `todo Complete homework`                                                                                                    |
-| **[Deadline](#adding-deadlines)** | `deadline <task description> /by <due date in YYYY-MM-DD format>` <br> _E.g._ `deadline Submit application /by 2025-02-28`                                        |
-| **[Event](#adding-events)**       | `event <description> /from <start date in YYYY-MM-DD format> /to <end date in YYYY-MM-DD format>` <br> _E.g._ `event Career Fair /from 2025-02-17 /to 2025-02-28` |
-| **[Toggle](#toggling-a-task)**    | `toggle <task number>` <br> _E.g._ `toggle 1`                                                                                                                     |      
-| **[Find](#finding-a-task)**       | `find <search term>` <br> _E.g._ `find assignment`                                                                                                                |
-| **[Delete](#deleting-a-task)**    | `delete <task number>` <br> _E.g._ `delete 4`                                                                                                                     |
-| **[Undo](#undo-last-command)**    | `undo`                                                                                                                                                            |
+| Command  | Usage Example |  
+|----------|--------------|  
+| [List](#listing-your-tasks)     | `list` |  
+| [Todo](#adding-todos)     | `todo <task description>`<br>_E.g._ `todo Complete homework` |  
+| [Deadline](#adding-deadlines) | `deadline <task description> /by <due date in YYYY-MM-DD format>`<br>_E.g._ `deadline Submit application /by 2025-02-28` |  
+| [Event](#adding-events)    | `event <description> /from <start date in YYYY-MM-DD format> /to <end date in YYYY-MM-DD format>`<br>_E.g._ `event Career Fair /from 2025-02-17 /to 2025-02-28` |  
+| [Toggle](#toggling-a-task)   | `toggle <task number>`<br>_E.g._ `toggle 1` |  
+| [Find](#finding-a-task)     | `find <search term>`<br>_E.g._ `find assignment` |  
+| [Delete](#deleting-a-task)   | `delete <task number>`<br>_E.g._ `delete 4` |  
+| [Undo](#undo-last-command)     | `undo` |
 
 ### AI ACKNOWLEDGEMENTS
 AI was used to aid in writing JavaDoc comments for all public methods.
